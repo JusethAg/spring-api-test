@@ -1,6 +1,6 @@
 package com.jusethag.market.domain;
 
-public class PurchaseItem {
+public class CartItem {
 
     private int purchaseId;
     private int quantity;

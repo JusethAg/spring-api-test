@@ -1,6 +1,6 @@
 package com.jusethag.market.persistence.mapper;
 
-import com.jusethag.market.domain.Purchase;
+import com.jusethag.market.domain.Cart;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,11 +15,11 @@ public interface PurchaseMapper {
             @Mapping(source = "status", target = "state"),
             @Mapping(source = "products", target = "items")
     })
-    Purchase toPurchase(com.jusethag.market.persistence.entity.Purchase purchase);
+    Cart toPurchase(com.jusethag.market.persistence.entity.Purchase purchase);
 
-    List<Purchase> toPurchases(List<com.jusethag.market.persistence.entity.Purchase> purchases);
+    List<Cart> toPurchases(List<com.jusethag.market.persistence.entity.Purchase> purchases);
 
     @InheritInverseConfiguration
     @Mapping(target = "client", ignore = true)
-    com.jusethag.market.persistence.entity.Purchase toPurchase(Purchase purchase);
+    com.jusethag.market.persistence.entity.Purchase toPurchase(Cart cart);
 }

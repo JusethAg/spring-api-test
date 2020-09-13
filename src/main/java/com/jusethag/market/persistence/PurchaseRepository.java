@@ -1,6 +1,7 @@
 package com.jusethag.market.persistence;
 
-import com.jusethag.market.domain.Purchase;
+import com.jusethag.market.domain.Cart;
+import com.jusethag.market.domain.repository.CartRepository;
 import com.jusethag.market.persistence.crud.PurchaseCrudRepository;
 import com.jusethag.market.persistence.mapper.PurchaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class PurchaseRepository implements com.jusethag.market.domain.repository.PurchaseRepository {
+public class PurchaseRepository implements CartRepository {
 
     @Autowired
     private PurchaseCrudRepository purchaseCrudRepository;
@@ -19,20 +20,20 @@ public class PurchaseRepository implements com.jusethag.market.domain.repository
     private PurchaseMapper mapper;
 
     @Override
-    public List<Purchase> getAll() {
+    public List<Cart> getAll() {
         return mapper.toPurchases(
                 (List<com.jusethag.market.persistence.entity.Purchase>) purchaseCrudRepository.findAll()
         );
     }
 
     @Override
-    public Optional<List<Purchase>> getByClient(String clientId) {
+    public Optional<List<Cart>> getByClient(String clientId) {
         return purchaseCrudRepository.findByClientId(clientId).map(purchases -> mapper.toPurchases(purchases));
     }
 
     @Override
-    public Purchase save(Purchase purchase) {
-        com.jusethag.market.persistence.entity.Purchase entityPurchase = mapper.toPurchase(purchase);
+    public Cart save(Cart cart) {
+        com.jusethag.market.persistence.entity.Purchase entityPurchase = mapper.toPurchase(cart);
         entityPurchase.getProducts().forEach(product -> product.setPurchase(entityPurchase));
 
         return mapper.toPurchase(purchaseCrudRepository.save(entityPurchase));

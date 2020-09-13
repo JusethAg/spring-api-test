@@ -1,6 +1,6 @@
 package com.jusethag.market.persistence.mapper;
 
-import com.jusethag.market.domain.PurchaseItem;
+import com.jusethag.market.domain.CartItem;
 import com.jusethag.market.persistence.entity.PurchasesProduct;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -15,7 +15,7 @@ public interface PurchaseItemMapper {
             @Mapping(source = "amount", target = "quantity"),
             @Mapping(source = "status", target = "active")
     })
-    PurchaseItem toPurchase(PurchasesProduct purchasesProduct);
+    CartItem toPurchase(PurchasesProduct purchasesProduct);
 
     @InheritInverseConfiguration
     @Mappings({
@@ -23,5 +23,5 @@ public interface PurchaseItemMapper {
             @Mapping(target = "product", ignore = true),
             @Mapping(target = "id.purchaseId", ignore = true)
     })
-    PurchasesProduct toPurchasesProduct(PurchaseItem purchaseItem);
+    PurchasesProduct toPurchasesProduct(CartItem cartItem);
 }

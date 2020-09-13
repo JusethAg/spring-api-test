@@ -3,7 +3,7 @@ package com.jusethag.market.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Purchase {
+public class Cart {
 
     private int purchaseId;
     private int clientId;
@@ -11,7 +11,7 @@ public class Purchase {
     private String paymentMethod;
     private String comment;
     private String state;
-    private List<PurchaseItem> items;
+    private List<CartItem> items;
 
     public int getPurchaseId() {
         return purchaseId;
@@ -61,11 +61,11 @@ public class Purchase {
         this.state = state;
     }
 
-    public List<PurchaseItem> getItems() {
+    public List<CartItem> getItems() {
         return items;
     }
 
-    public void setItems(List<PurchaseItem> items) {
+    public void setItems(List<CartItem> items) {
         this.items = items;
     }
 }
