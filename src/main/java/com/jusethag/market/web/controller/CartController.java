@@ -5,14 +5,12 @@ import com.jusethag.market.domain.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/carts")
 public class CartController {
 
     @Autowired
@@ -24,10 +22,15 @@ public class CartController {
     }
 
     @GetMapping("/{clientId}")
-    public ResponseEntity<List<Cart>> getByClient(String clientId) {
+    public ResponseEntity<List<Cart>> getByClient(@PathVariable("clientId") String clientId) {
         return cartService.getByClient(clientId)
                 .map(carts -> new ResponseEntity<>(carts, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    
+
+    @PostMapping
+    public ResponseEntity<Cart> save(@RequestBody Cart cart) {
+        return new ResponseEntity<>(cartService.save(cart), HttpStatus.CREATED);
+    }
+
 }
