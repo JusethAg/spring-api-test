@@ -29,7 +29,7 @@ public class Purchase {
     @JoinColumn(name = "client_id", insertable = false, updatable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "purchase", cascade = {CascadeType.ALL})
     private List<PurchasesProduct> products;
 
     public Integer getPurchaseId() {
