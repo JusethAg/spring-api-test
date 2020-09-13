@@ -1,35 +1,54 @@
 package com.jusethag.market.persistence;
 
+import com.jusethag.market.domain.Product;
 import com.jusethag.market.persistence.crud.ProductCrudRepository;
-import com.jusethag.market.persistence.entity.Product;
+import com.jusethag.market.persistence.mapper.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository implements com.jusethag.market.domain.repository.ProductRepository {
 
     private ProductCrudRepository productCrudRepository;
+    private ProductMapper mapper;
 
+    @Override
     public List<Product> getAll() {
-        return (List<Product>) this.productCrudRepository.findAll();
+        List<com.jusethag.market.persistence.entity.Product> products =
+                (List<com.jusethag.market.persistence.entity.Product>) this.productCrudRepository.findAll();
+        return mapper.toProducts(products);
     }
 
-    public List<Product> getByCategoryId(int categoryId) {
-        return this.productCrudRepository.findByCategoryIdOrderByNameAsc(categoryId);
+    @Override
+    public Optional<Product> getByCategory(int categoryId) {
+        com.jusethag.market.persistence.entity.Product product =
+                (com.jusethag.market.persistence.entity.Product)
+                        this.productCrudRepository.findByCategoryIdOrderByNameAsc(categoryId);
+
+        return Optional.of(mapper.toProduct(product));
     }
 
-    public Optional<List<Product>> getScarce(int amount) {
-        return this.productCrudRepository.findByStockAmountLessThanAndStatus(amount, true);
+    @Override
+    public Optional<List<Product>> getScarceProducts(int quantity) {
+        Optional<List<com.jusethag.market.persistence.entity.Product>> products =
+                this.productCrudRepository.findByStockAmountLessThanAndStatus(quantity, true);
+
+        return products.map(prods -> mapper.toProducts(prods));
     }
 
-    public Optional<Product> getProductById(int productId) {
-        return this.productCrudRepository.findById(productId);
+    @Override
+    public Optional<Product> getProduct(int productId) {
+        return this.productCrudRepository.findById(productId)
+                .map(product -> mapper.toProduct(product));
     }
 
+    @Override
     public Product save(Product product) {
-        return this.productCrudRepository.save(product);
+        com.jusethag.market.persistence.entity.Product entityProduct =
+                mapper.toProduct(product);
+        return mapper.toProduct(this.productCrudRepository.save(entityProduct));
     }
 
     public void delete(int productId) {

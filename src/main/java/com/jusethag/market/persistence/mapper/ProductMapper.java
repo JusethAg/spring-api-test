@@ -18,7 +18,7 @@ public interface ProductMapper {
     })
     Product toProduct(com.jusethag.market.persistence.entity.Product product);
 
-    List<Product> toProducts(List<com.jusethag.market.persistence.entity.Product> products)
+    List<Product> toProducts(List<com.jusethag.market.persistence.entity.Product> products);
 
     @InheritInverseConfiguration
     @Mapping(target = "barcode", ignore = true)
