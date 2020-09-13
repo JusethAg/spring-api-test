@@ -79,4 +79,20 @@ public class Purchase {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public List<PurchasesProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<PurchasesProduct> products) {
+        this.products = products;
+    }
 }
