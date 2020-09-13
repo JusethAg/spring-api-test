@@ -1,4 +1,4 @@
-package com.jusethag.market;
+package com.jusethag.market.web.controller;
 
 import com.jusethag.market.domain.Product;
 import com.jusethag.market.domain.service.ProductService;
