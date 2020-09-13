@@ -26,12 +26,11 @@ public class ProductRepository implements com.jusethag.market.domain.repository.
     }
 
     @Override
-    public Optional<Product> getByCategory(int categoryId) {
-        com.jusethag.market.persistence.entity.Product product =
-                (com.jusethag.market.persistence.entity.Product)
+    public Optional<List<Product>> getByCategory(int categoryId) {
+        List<com.jusethag.market.persistence.entity.Product> products =
                         this.productCrudRepository.findByCategoryIdOrderByNameAsc(categoryId);
 
-        return Optional.of(mapper.toProduct(product));
+        return Optional.of(mapper.toProducts(products));
     }
 
     @Override

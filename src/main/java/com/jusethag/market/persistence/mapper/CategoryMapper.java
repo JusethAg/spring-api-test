@@ -11,7 +11,7 @@ public interface CategoryMapper {
 
     @Mappings({
             @Mapping(source = "description", target = "category"),
-            @Mapping(source = "active", target = "status")
+            @Mapping(source = "status", target = "active")
     })
     Category toCategory(com.jusethag.market.persistence.entity.Category category);
 
