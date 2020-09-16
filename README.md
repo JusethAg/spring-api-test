@@ -1,4 +1,4 @@
-# Juseth Market 
+# Market API
 
 This repo is for testing the different projects of Spring and other libraries through a REST API project.
 
